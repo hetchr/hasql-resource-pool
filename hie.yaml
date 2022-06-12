@@ -1,0 +1,5 @@
+cradle:
+  cabal:
+    components:
+      - path: "./library"
+        component: "hasql-resource-pool:lib:hasql-resource-pool"

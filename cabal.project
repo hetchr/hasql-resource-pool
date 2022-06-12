@@ -1,0 +1,4 @@
+packages: ./*.cabal
+
+package hasql-resource-pool
+    ghc-options:  -Werror
