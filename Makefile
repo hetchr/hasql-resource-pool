@@ -44,7 +44,7 @@ run-example:
 
 
 .PHONY: distribute
-distribute:
+distribute: build-local
 	cabal v2-sdist --builddir $(CABAL_BUILD_DIR)
 
 
@@ -60,4 +60,4 @@ release:
 
 .PHONY: cleanall
 cleanall:
-	rm -r $(DISTRIBUTIONS)
+	rm -rvf $(DISTRIBUTIONS)
