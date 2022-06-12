@@ -1,7 +1,7 @@
 name:
   hasql-resource-pool
 version:
-  0.5.2.2
+  0.5.3.0
 category:
   Hasql, Database, PostgreSQL
 synopsis:
@@ -15,7 +15,7 @@ author:
 maintainer:
   Maxim Avanov <maxim.avanov@gmail.com>
 copyright:
-  (c) 2015, Nikita Volkov
+  (c) 2022, Maxim Avanov
 license:
   MIT
 license-file:
