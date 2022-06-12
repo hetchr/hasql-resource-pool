@@ -3,7 +3,7 @@ module Hasql.Pool
 ,   Settings(..)
 ,   UsageError(..)
 ,   acquire
-,   acquireWithStripes
+,   acquireWith
 ,   release
 ,   use
 ,   useWithObserver
@@ -33,6 +33,10 @@ type PoolStripes      = Int
 type ResidenceTimeout = NominalDiffTime
 
 -- |
+-- Connection getter action that allows for obtaining Postgres connection settings via external rsources such as AWS tokens etc.
+type ConnectionGetter = IO (Either Hasql.Connection.ConnectionError Hasql.Connection.Connection)
+
+-- |
 -- Settings of the connection pool. Consist of:
 --
 -- * Pool-size.
@@ -50,20 +54,22 @@ type Settings =
 -- Given the pool-size, timeout and connection settings
 -- create a connection-pool.
 acquire :: Settings -> IO Pool
-acquire =
-    acquireWithStripes stripes
+acquire settings@(_size, _timeout, connectionSettings) =
+    acquireWith stripes (Hasql.Connection.acquire connectionSettings) settings
     where
         stripes = 1
 
 
-acquireWithStripes :: PoolStripes
-                   -> Settings
-                   -> IO Pool
-acquireWithStripes stripes (size, timeout, connectionSettings) =
+-- |
+-- Similar to 'acquire', allows for finer configuration.
+acquireWith :: PoolStripes
+            -> ConnectionGetter
+            -> Settings
+            -> IO Pool
+acquireWith stripes connGetter (size, timeout, connectionSettings) =
     fmap Pool $
-        ResourcePool.createPool acquire release stripes timeout size
+        ResourcePool.createPool connGetter release stripes timeout size
     where
-        acquire = Hasql.Connection.acquire connectionSettings
         release = either (const (pure ())) Hasql.Connection.release
 
 

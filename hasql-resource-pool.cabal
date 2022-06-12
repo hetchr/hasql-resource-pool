@@ -1,7 +1,7 @@
 name:
   hasql-resource-pool
 version:
-  0.5.3.0
+  0.5.3.1
 category:
   Hasql, Database, PostgreSQL
 synopsis:
@@ -76,5 +76,5 @@ test-suite test
   build-depends:
     base-prelude,
     hasql,
-    hasql-pool,
+    hasql-resource-pool,
     hspec >= 2.6 && < 3

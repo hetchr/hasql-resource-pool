@@ -38,6 +38,12 @@ repl:	build-local
 run:
 	cabal v2-run -- --help
 
+
+.PHONY: test
+test:
+	cabal v2-test all --builddir $(CABAL_BUILD_DIR)
+
+
 .PHONY: run-example
 run-example:
 	echo "done"

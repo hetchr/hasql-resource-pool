@@ -1,3 +1,8 @@
+# 0.5.3.1
+
+* `acquireWithStripes` renamed to `aquireWith` and allows specifying a custom `ConnectionGetter`.
+
+
 # 0.5.3
 
 Initial release as a new package. The implementation is based on `hasql-pool` v0.5.2.2
