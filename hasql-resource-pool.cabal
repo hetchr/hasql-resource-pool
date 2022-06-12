@@ -59,7 +59,9 @@ library
     clock >= 0.8,
     -- general:
     base-prelude >= 1 && < 2
-
+extra-source-files:
+  CHANGELOG.md
+  README.md
 
 test-suite test
   type:
