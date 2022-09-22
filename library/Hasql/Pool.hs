@@ -121,7 +121,7 @@ useWithObserver observer (Pool pool) session =
 
 -- |
 -- Use a 'Connection' from the 'Pool'
-withConnection :: Pool -> (Connection -> IO a) -> IO (Either Hasql.Connection.ConnectionError a)
+withConnection :: Pool -> (Hasql.Connection.Connection -> IO a) -> IO (Either Hasql.Connection.ConnectionError a)
 withConnection (Pool p) f =
   ResourcePool.withResource p $
     either (return . Left) (fmap Right . f)
