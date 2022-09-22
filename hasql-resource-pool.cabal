@@ -1,7 +1,7 @@
 name:
   hasql-resource-pool
 version:
-  0.5.3.1
+  0.5.3.2
 category:
   Hasql, Database, PostgreSQL
 synopsis:

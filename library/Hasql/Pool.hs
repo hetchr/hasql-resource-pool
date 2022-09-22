@@ -2,6 +2,7 @@ module Hasql.Pool
 (   Pool
 ,   Settings(..)
 ,   UsageError(..)
+,   withConnection
 ,   acquire
 ,   acquireWith
 ,   release
@@ -117,6 +118,13 @@ useWithObserver observer (Pool pool) session =
                 observed = Observed {   latency = toRational (toNanoSecs (end `diffTimeSpec` start) % nsRatio)
                                     }
             doObserve observed >> pure result
+
+-- |
+-- Use a 'Connection' from the 'Pool'
+withConnection :: Pool -> (Connection -> IO a) -> IO (Either Hasql.Connection.ConnectionError a)
+withConnection (Pool p) f =
+  ResourcePool.withResource p $
+    either (return . Left) (fmap Right . f)
 
 
 getPoolStats :: Pool -> IO ResourcePool.Stats
